@@ -13,11 +13,17 @@ var app = express();
 var fs = require('fs');
 var rx = require('rx');
 
-fs.readdir("../", function( err, files ) {
+var config = require("./app-config");
+
+var scripts = require("./scripts");
+
+scripts.ll();
+scripts.ssh();
+
+fs.readdir(path.resolve( config["mount_dir"] ), function( err, files ) {
 
   if ( !err )
     console.log( files );
-  //files.forEach( function( file ) { console.log( "file: " + file )
 } );
 
 // view engine setup
@@ -38,7 +44,7 @@ app.use('/users', users);
 app.get('/files', function( req, res, next ) {
     var readdir = rx.Observable.fromCallback(fs.readdir);
     var files = readdir("../");
-    files.take(1).subscribe( function( files ) { res.json( files ) } );
+    files.take(1).subscribe( function( files ) { console.log( "files: " + files ); res.json( files ); } );
 });
 
 // catch 404 and forward to error handler

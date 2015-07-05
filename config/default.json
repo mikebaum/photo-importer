@@ -1,0 +1,7 @@
+{
+  "platform": {
+    "darwin": {
+      "mount_dir": "/Volumes/"
+    }
+  }
+}
